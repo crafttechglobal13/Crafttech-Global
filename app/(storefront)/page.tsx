@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import ProductCard from "@/components/products/ProductCard";
 import { dbService } from "@/lib/database/db";
+import TechServicesSection from "@/components/home/TechServicesSection";
 
 export default function HomePage() {
   const products = dbService.getProducts();
@@ -500,6 +501,11 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+
+      {/* =========================================================================
+          SECTION 8: TECHNOLOGY & DIGITAL SOLUTIONS
+      ========================================================================= */}
+      <TechServicesSection />
     </div>
   );
 }

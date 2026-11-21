@@ -16,6 +16,12 @@ import {
   Navigation,
   ExternalLink,
   Sparkles,
+  Code2,
+  Globe,
+  Search,
+  TrendingUp,
+  ShoppingBag,
+  Palette,
 } from "lucide-react";
 
 export default function AboutPage() {
@@ -123,6 +129,140 @@ export default function AboutPage() {
                 Reinvesting trade premiums directly into health security, educational stipends, and ergonomic workspace upgrades.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Beyond Craftsmanship — Technology & Digital Innovation */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="bg-gradient-to-b from-[#FAF5EE] via-white to-[#FAF5EE] rounded-3xl border-2 border-[#D4A437]/40 p-8 sm:p-12 lg:p-16 shadow-sm space-y-12">
+          {/* Header & Company Introduction */}
+          <div className="max-w-3xl mx-auto text-center space-y-4">
+            <div className="inline-flex items-center gap-2 bg-[#0D2D5B] text-white px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase border border-[#D4A437]/50 shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-[#D4A437]" />
+              <span>Modern Innovation & Heritage Synergy</span>
+            </div>
+
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A]">
+              Beyond Craftsmanship — Technology & Digital Innovation
+            </h2>
+
+            <div className="w-20 h-0.5 bg-gradient-to-r from-transparent via-[#D4A437] to-transparent mx-auto" />
+
+            <p className="text-sm sm:text-base text-neutral-700 leading-relaxed font-sans">
+              At CRAFTTECH GLOBAL, we believe in combining traditional craftsmanship with modern innovation. Alongside our commitment to delivering quality carpets, rugs, handicrafts, and home decor products, we provide technology and digital solutions that help businesses establish, grow, and succeed in the digital world.
+            </p>
+          </div>
+
+          {/* Subsection: Our Technology Services */}
+          <div className="space-y-6">
+            <div className="text-center">
+              <h3 className="font-serif text-2xl font-bold text-[#7A0D2E]">
+                Our Technology Services
+              </h3>
+              <p className="text-xs text-neutral-500 mt-1">
+                Strategic digital capabilities tailored for modern commerce and enterprise acceleration.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* 1 */}
+              <div className="p-6 bg-white rounded-2xl border border-[#D4A437]/30 shadow-xs hover:border-[#7A0D2E] transition-all duration-300 space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-[#FAF5EE] border border-[#D4A437]/40 flex items-center justify-center text-[#7A0D2E]">
+                  <Globe className="w-5 h-5" />
+                </div>
+                <h4 className="font-serif font-bold text-lg text-[#1A1A1A]">
+                  Website & E-commerce Development
+                </h4>
+                <p className="text-xs text-neutral-600 leading-relaxed">
+                  Responsive, high-performance business websites, online stores, and bespoke web applications built for speed, security, and conversion.
+                </p>
+              </div>
+
+              {/* 2 */}
+              <div className="p-6 bg-white rounded-2xl border border-[#D4A437]/30 shadow-xs hover:border-[#7A0D2E] transition-all duration-300 space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-[#FAF5EE] border border-[#D4A437]/40 flex items-center justify-center text-[#7A0D2E]">
+                  <Search className="w-5 h-5" />
+                </div>
+                <h4 className="font-serif font-bold text-lg text-[#1A1A1A]">
+                  Search Engine Optimization (SEO)
+                </h4>
+                <p className="text-xs text-neutral-600 leading-relaxed">
+                  Comprehensive technical, on-page, keyword, and local search strategies that maximize organic rankings and attract qualified visitors.
+                </p>
+              </div>
+
+              {/* 3 */}
+              <div className="p-6 bg-white rounded-2xl border border-[#D4A437]/30 shadow-xs hover:border-[#7A0D2E] transition-all duration-300 space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-[#FAF5EE] border border-[#D4A437]/40 flex items-center justify-center text-[#7A0D2E]">
+                  <TrendingUp className="w-5 h-5" />
+                </div>
+                <h4 className="font-serif font-bold text-lg text-[#1A1A1A]">
+                  Digital Marketing
+                </h4>
+                <p className="text-xs text-neutral-600 leading-relaxed">
+                  Targeted performance marketing across Google Ads, Meta platforms, social channels, and high-impact lead generation campaigns.
+                </p>
+              </div>
+
+              {/* 4 */}
+              <div className="p-6 bg-white rounded-2xl border border-[#D4A437]/30 shadow-xs hover:border-[#7A0D2E] transition-all duration-300 space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-[#FAF5EE] border border-[#D4A437]/40 flex items-center justify-center text-[#7A0D2E]">
+                  <ShoppingBag className="w-5 h-5" />
+                </div>
+                <h4 className="font-serif font-bold text-lg text-[#1A1A1A]">
+                  Shopify Store & App Development
+                </h4>
+                <p className="text-xs text-neutral-600 leading-relaxed">
+                  Custom Shopify theme design, application development, third-party integrations, and continuous store optimization.
+                </p>
+              </div>
+
+              {/* 5 */}
+              <div className="p-6 bg-white rounded-2xl border border-[#D4A437]/30 shadow-xs hover:border-[#7A0D2E] transition-all duration-300 space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-[#FAF5EE] border border-[#D4A437]/40 flex items-center justify-center text-[#7A0D2E]">
+                  <Palette className="w-5 h-5" />
+                </div>
+                <h4 className="font-serif font-bold text-lg text-[#1A1A1A]">
+                  Branding & Graphic Design
+                </h4>
+                <p className="text-xs text-neutral-600 leading-relaxed">
+                  Memorable logo design, cohesive brand identity, social creatives, and packaging design that communicate luxury and distinction.
+                </p>
+              </div>
+
+              {/* 6 */}
+              <div className="p-6 bg-white rounded-2xl border border-[#D4A437]/30 shadow-xs hover:border-[#7A0D2E] transition-all duration-300 space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-[#FAF5EE] border border-[#D4A437]/40 flex items-center justify-center text-[#7A0D2E]">
+                  <Code2 className="w-5 h-5" />
+                </div>
+                <h4 className="font-serif font-bold text-lg text-[#1A1A1A]">
+                  Custom Software Development
+                </h4>
+                <p className="text-xs text-neutral-600 leading-relaxed">
+                  Enterprise workflow automation, bespoke software management systems, secure API architecture, and digital tooling.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Concluding Statement & Consultation Link */}
+          <div className="bg-[#FAF5EE] border border-[#D4A437]/50 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+            <div className="space-y-1 max-w-2xl">
+              <h4 className="font-serif font-bold text-lg text-[#1A1A1A]">
+                Our Unified Purpose
+              </h4>
+              <p className="text-xs sm:text-sm text-neutral-700 italic font-serif">
+                &ldquo;Our mission is to connect creativity, craftsmanship, and technology to deliver meaningful value to customers and businesses worldwide.&rdquo;
+              </p>
+            </div>
+            <Link
+              href="/contact?service=General%20Technology%20Consultation#consultation"
+              className="bg-[#7A0D2E] text-white text-xs font-semibold py-3 px-6 rounded-full hover:bg-[#6B0B28] transition-colors whitespace-nowrap uppercase tracking-wider flex items-center gap-2 shadow-xs"
+            >
+              <span>Consult Our Experts</span>
+              <ArrowRight className="w-3.5 h-3.5 text-[#D4A437]" />
+            </Link>
           </div>
         </div>
       </section>
