@@ -167,10 +167,12 @@ export default function Header() {
           </div>
 
           {/* Left: Brand Logo */}
-          <BrandLogo variant="header" size={isScrolled ? "sm" : "md"} />
+          <div className="flex-shrink-0">
+            <BrandLogo variant="header" size={isScrolled ? "sm" : "md"} />
+          </div>
 
           {/* Center: Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-7 font-sans text-[14px] text-[#1A1A1A]">
+          <nav className="hidden lg:flex items-center space-x-5 xl:space-x-7 font-sans text-[13.5px] xl:text-[14px] text-[#1A1A1A] mx-3 xl:mx-8">
             <Link
               href="/"
               className={`font-medium tracking-wide transition-colors relative py-1 ${
@@ -496,19 +498,15 @@ export default function Header() {
               About Us
             </Link>
 
-            {/* Highlighted Technology Services Link */}
             <Link
               href="/services"
-              className={`font-semibold tracking-wide transition-all inline-flex items-center gap-1.5 px-3 py-1 rounded-full border text-xs shadow-xs ${
+              className={`font-medium tracking-wide transition-colors relative py-1 ${
                 pathname === "/services"
-                  ? "bg-[#0D2D5B] text-[#D4A437] border-[#D4A437]"
-                  : "border-[#D4A437]/70 text-[#0D2D5B] bg-[#FAF5EE] hover:bg-[#0D2D5B] hover:text-[#D4A437] hover:border-[#D4A437]"
+                  ? "text-[#7A0D2E] font-semibold after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-[#7A0D2E]"
+                  : "hover:text-[#7A0D2E]"
               }`}
             >
-              <span>Tech Services</span>
-              <span className="text-[9px] bg-[#D4A437] text-[#1A1A1A] font-bold px-1.5 py-0.2 rounded-full uppercase tracking-wider">
-                New
-              </span>
+              Services
             </Link>
           </nav>
 
@@ -636,28 +634,12 @@ export default function Header() {
                 Home
               </Link>
 
-              {/* Highlighted Tech Services Card for Mobile */}
               <Link
                 href="/services"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`block p-3.5 rounded-xl border transition-all ${
-                  pathname === "/services"
-                    ? "bg-[#0D2D5B] border-[#D4A437] text-white shadow-md"
-                    : "bg-white border-[#D4A437]/70 text-[#0D2D5B] hover:bg-[#0D2D5B] hover:text-white"
-                }`}
+                className="block text-[#1A1A1A] font-medium py-1.5 border-b border-black/5 hover:text-[#7A0D2E]"
               >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="font-serif font-bold text-sm">Tech & Digital Services</span>
-                    <span className="text-[9px] bg-[#D4A437] text-[#1A1A1A] font-bold px-1.5 py-0.5 rounded-full uppercase tracking-wider">
-                      New
-                    </span>
-                  </div>
-                  <ArrowRight className="w-4 h-4 text-[#D4A437]" />
-                </div>
-                <p className="text-[11px] text-neutral-500 mt-1">
-                  Websites, Shopify, SEO, Digital Marketing & Custom Software
-                </p>
+                Services
               </Link>
 
               <div className="border-b border-black/5 pb-2">

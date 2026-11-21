@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -26,27 +26,50 @@ export default function HomePage() {
   const [heroIndex, setHeroIndex] = useState(0);
   const heroSlides = [
     {
-      title: "Bringing Traditional Craftsmanship to Modern Living.",
+      badge: "HERITAGE • LUXURY • AUTHENTICITY",
+      titlePrefix: "Bringing Traditional Craftsmanship to ",
       highlight: "Modern Living.",
       desc: "Explore a thoughtfully curated collection of handcrafted carpets, rugs and home decor, created to bring character and elegance into every space.",
       image: "https://images.unsplash.com/photo-1600121848594-d8644e57abab?auto=format&fit=crop&w=1800&q=85",
-      cta: "/shop?category=carpets-rugs",
+      primaryCta: { label: "Explore Collection", href: "/shop" },
+      secondaryCta: { label: "Discover Our Story", href: "/about" },
     },
     {
-      title: "Artisanal Nakashi Brass & Sacred Metal Sculptures.",
+      badge: "ROYAL HERITAGE • MASTER ARTISANS",
+      titlePrefix: "Artisanal Nakashi Brass & ",
       highlight: "Sacred Metal Sculptures.",
       desc: "Directly from the royal master artisans of Moradabad and Jaipur. Each sculpture is hand-cast and hand-chiseled with centuries of heritage.",
       image: "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=1800&q=85",
-      cta: "/categories/handicrafts",
+      primaryCta: { label: "Explore Handicrafts", href: "/categories/handicrafts" },
+      secondaryCta: { label: "Our Craftsmanship", href: "/craftsmanship" },
     },
     {
-      title: "Hand-Embroidered Velvet & Regal Home Accents.",
+      badge: "TIMELESS ELEGANCE • REGAL HOME ACCENTS",
+      titlePrefix: "Hand-Embroidered Velvet & ",
       highlight: "Regal Home Accents.",
       desc: "Elevate your sanctuary with heritage Zardozi velvet cushions, hand block-printed runners, and enchanting Moroccan brass lanterns.",
       image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=1800&q=85",
-      cta: "/categories/home-decor",
+      primaryCta: { label: "Shop Home Decor", href: "/categories/home-decor" },
+      secondaryCta: { label: "New Arrivals", href: "/shop?badge=New" },
+    },
+    {
+      badge: "INNOVATION • TECHNOLOGY • DIGITAL SOLUTIONS",
+      titlePrefix: "Empowering Modern Businesses with ",
+      highlight: "Digital Solutions.",
+      desc: "Innovative website development, high-converting Shopify stores, organic SEO domination, and custom software solutions that drive growth.",
+      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1800&q=85",
+      primaryCta: { label: "Explore Our Services", href: "/services" },
+      secondaryCta: { label: "Get a Free Consultation", href: "/contact?service=General%20Technology%20Consultation#consultation" },
     },
   ];
+
+  // Auto-advance hero slides every 6 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setHeroIndex((prev) => (prev + 1) % 4);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, []);
 
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [newsletterSuccess, setNewsletterSuccess] = useState(false);
@@ -83,12 +106,12 @@ export default function HomePage() {
         <div className="relative max-w-7xl mx-auto h-full px-4 sm:px-6 flex flex-col justify-center">
           <div className="max-w-2xl text-white space-y-4 sm:space-y-6">
             <span className="inline-block text-xs sm:text-sm font-semibold tracking-[0.25em] text-[#D4A437] uppercase">
-              Heritage • Luxury • Authenticity
+              {heroSlides[heroIndex].badge}
             </span>
 
             <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-wide">
-              Bringing Traditional Craftsmanship to{" "}
-              <span className="italic text-[#D4A437]">Modern Living.</span>
+              {heroSlides[heroIndex].titlePrefix}
+              <span className="italic text-[#D4A437]">{heroSlides[heroIndex].highlight}</span>
             </h1>
 
             <p className="font-sans text-xs sm:text-base text-[#F7F0E6]/90 leading-relaxed font-normal max-w-xl">
@@ -98,18 +121,18 @@ export default function HomePage() {
             {/* CTAs */}
             <div className="pt-2 flex flex-wrap items-center gap-4">
               <Link
-                href="/shop"
+                href={heroSlides[heroIndex].primaryCta.href}
                 className="bg-[#7A0D2E] text-white px-7 py-3 rounded-full font-sans text-xs sm:text-sm font-semibold flex items-center gap-2 hover:bg-[#6B0B28] transition-all shadow-lg active:scale-95 border border-[#7A0D2E]"
               >
-                <span>Explore Collection</span>
+                <span>{heroSlides[heroIndex].primaryCta.label}</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
 
               <Link
-                href="/about"
+                href={heroSlides[heroIndex].secondaryCta.href}
                 className="bg-transparent text-[#F7F0E6] px-7 py-3 rounded-full font-sans text-xs sm:text-sm font-semibold hover:bg-white/10 hover:text-white transition-all border border-[#D4A437]/70"
               >
-                Discover Our Story
+                {heroSlides[heroIndex].secondaryCta.label}
               </Link>
             </div>
           </div>
