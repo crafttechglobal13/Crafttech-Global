@@ -33,10 +33,10 @@ export default function Footer() {
       <div className="absolute top-0 right-0 w-96 h-96 bg-[#D4A437]/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-[#D4A437]/20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 sm:gap-10 pb-12 border-b border-[#D4A437]/20">
           {/* Col 1: Brand Info & Socials */}
-          <div className="space-y-4">
-            <BrandLogo variant="footer" size="lg" />
+          <div className="sm:col-span-2 md:col-span-3 lg:col-span-2 space-y-4">
+            <BrandLogo variant="footer" size="md" />
 
             <p className="text-xs text-[#F7F0E6]/80 leading-relaxed max-w-sm pt-2">
               Bringing Traditional Craftsmanship to Modern Living. Discover exceptional hand-knotted Persian carpets, intricate Nakashi brassware, and artisan-embroidered home decor created by generational masters.

@@ -104,41 +104,51 @@ export default function BrandLogo({
   // 3. Footer Variant (Luminous Ivory & Gold Lockup on Dark Navy, Transparent, NO CIRCLE)
   if (variant === "footer") {
     const content = (
-      <div className={`inline-flex flex-col items-start group ${className}`}>
+      <div className={`inline-flex flex-col items-start group max-w-full ${className}`}>
         <div
-          className="relative transition-transform duration-300 group-hover:scale-[1.02]"
-          style={{ width: dimensions.footerW, height: dimensions.footerH }}
+          className="relative transition-transform duration-300 group-hover:scale-[1.02] max-w-full"
+          style={{
+            width: dimensions.footerW,
+            maxWidth: "100%",
+            height: dimensions.footerH,
+            maxHeight: "100%",
+          }}
         >
           <Image
             src="/images/brand/logo_footer.png"
             alt="CRAFTTECH GLOBAL"
             width={dimensions.footerW}
             height={dimensions.footerH}
-            className="w-full h-full object-contain"
+            className="w-full h-full object-contain object-left"
             priority
           />
         </div>
-        <span className="text-[9px] sm:text-[10px] tracking-[0.22em] text-[#D4A437] uppercase font-sans font-medium block mt-1.5 pl-0.5 opacity-90">
+        <span className="text-[9px] sm:text-[10px] tracking-[0.22em] text-[#D4A437] uppercase font-sans font-medium block mt-1.5 pl-0.5 opacity-90 max-w-full truncate">
           Rooted in Heritage. Designed for the World.
         </span>
       </div>
     );
-    return href ? <Link href={href}>{content}</Link> : content;
+    return href ? <Link href={href} className="inline-block max-w-full">{content}</Link> : content;
   }
 
   // 4. Header Variant (Authentic 3D Ruby Maroon & Gold Horizontal Lockup, Transparent, NO CIRCLE)
   const headerContent = (
-    <div className={`inline-flex items-center group ${className}`}>
+    <div className={`inline-flex items-center group max-w-full ${className}`}>
       <div
-        className="relative transition-transform duration-300 group-hover:scale-[1.02]"
-        style={{ width: dimensions.headerW, height: dimensions.headerH }}
+        className="relative transition-transform duration-300 group-hover:scale-[1.02] max-w-full"
+        style={{
+          width: dimensions.headerW,
+          maxWidth: "100%",
+          height: dimensions.headerH,
+          maxHeight: "100%",
+        }}
       >
         <Image
           src="/images/brand/logo_header.png"
           alt="CRAFTTECH GLOBAL"
           width={dimensions.headerW}
           height={dimensions.headerH}
-          className="w-full h-full object-contain"
+          className="w-full h-full object-contain object-left"
           priority
         />
       </div>
