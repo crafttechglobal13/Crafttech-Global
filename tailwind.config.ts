@@ -1,0 +1,97 @@
+import type { Config } from "tailwindcss";
+
+const config: Config = {
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        maroon: {
+          DEFAULT: "#7A0D2E",
+          50: "#FDF2F4",
+          100: "#FBE6EA",
+          200: "#F6C7D1",
+          300: "#EE98AA",
+          400: "#DF5C78",
+          500: "#7A0D2E",
+          600: "#6B0B28",
+          700: "#590921",
+          800: "#47071A",
+          900: "#360514",
+        },
+        heritage: {
+          DEFAULT: "#7A0D2E",
+          50: "#FDF2F4",
+          100: "#FBE6EA",
+          200: "#F6C7D1",
+          300: "#EE98AA",
+          400: "#DF5C78",
+          500: "#7A0D2E",
+          600: "#6B0B28",
+          700: "#590921",
+          800: "#47071A",
+          900: "#360514",
+        },
+        gold: {
+          DEFAULT: "#D4A437",
+          50: "#FDF9EE",
+          100: "#F9F1D6",
+          200: "#F1E0A8",
+          300: "#E8CD78",
+          400: "#DEB84A",
+          500: "#D4A437",
+          600: "#B88A24",
+          700: "#8D6718",
+          800: "#664912",
+          900: "#44300E",
+        },
+        navy: {
+          DEFAULT: "#0D2D5B",
+          50: "#F0F5FA",
+          100: "#DFEAF4",
+          200: "#BCD2E8",
+          300: "#8AB2D7",
+          400: "#4E8AC0",
+          500: "#0D2D5B",
+          600: "#0A244A",
+          700: "#081B38",
+          800: "#051327",
+          900: "#030B17",
+        },
+        ivory: {
+          DEFAULT: "#F7F0E6",
+          50: "#FFFFFF",
+          100: "#FCFAF7",
+          200: "#F7F0E6",
+          300: "#EFE2CF",
+          400: "#E3CEB1",
+          500: "#D4B78F",
+        },
+        charcoal: {
+          DEFAULT: "#1A1A1A",
+          50: "#F6F6F6",
+          100: "#E7E7E7",
+          200: "#D1D1D1",
+          300: "#B0B0B0",
+          400: "#888888",
+          500: "#636363",
+          600: "#464646",
+          700: "#323232",
+          800: "#222222",
+          900: "#1A1A1A",
+        },
+      },
+      fontFamily: {
+        serif: ["var(--font-playfair)", "Playfair Display", "Georgia", "serif"],
+        sans: ["var(--font-inter)", "Inter", "sans-serif"],
+      },
+    },
+  },
+  plugins: [],
+};
+
+export default config;
+

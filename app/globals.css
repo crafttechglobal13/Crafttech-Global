@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --heritage-maroon: #7A0D2E;
+  --royal-gold: #D4A437;
+  --global-navy: #0D2D5B;
+  --ivory-cream: #F7F0E6;
+  --charcoal: #1A1A1A;
+}
+
+@layer base {
+  body {
+    background-color: #F7F0E6;
+    color: #1A1A1A;
+    font-family: var(--font-inter), 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-playfair), 'Playfair Display', serif;
+  }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F7F0E6;
+}
+::-webkit-scrollbar-thumb {
+  background: #D4A437;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #7A0D2E;
+}
+
+/* Custom subtle animations and badges */
+.luxury-gold-border {
+  border-color: #D4A437;
+}
+
+.luxury-gradient-overlay {
+  background: linear-gradient(180deg, rgba(13, 45, 91, 0.4) 0%, rgba(26, 26, 26, 0.8) 100%);
+}
+
+.bg-pattern-subtle {
+  background-image: radial-gradient(rgba(212, 164, 55, 0.15) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
