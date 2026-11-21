@@ -49,6 +49,8 @@ const securityHeaders = [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
+  trailingSlash: true,
   // Hide Next.js signature from automated vulnerability scanners
   poweredByHeader: false,
   webpack: (config) => {
@@ -56,6 +58,7 @@ const nextConfig = {
     return config;
   },
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
@@ -66,14 +69,6 @@ const nextConfig = {
         hostname: 'res.cloudinary.com',
       },
     ],
-  },
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: securityHeaders,
-      },
-    ];
   },
 };
 

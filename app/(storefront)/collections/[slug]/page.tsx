@@ -1,13 +1,22 @@
-"use client";
-
 import React from "react";
-import { useParams } from "next/navigation";
 import ProductCard from "@/components/products/ProductCard";
 import { dbService } from "@/lib/database/db";
 
-export default function CollectionDetailPage() {
-  const params = useParams();
-  const slug = params?.slug as string;
+export function generateStaticParams() {
+  return [
+    { slug: "heritage-rugs" },
+    { slug: "artisan-sculptures" },
+    { slug: "luxury-decor" },
+    { slug: "all" },
+  ];
+}
+
+export default function CollectionDetailPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const slug = params?.slug || "all";
   const products = dbService.getProducts();
 
   return (
@@ -29,4 +38,3 @@ export default function CollectionDetailPage() {
     </div>
   );
 }
-

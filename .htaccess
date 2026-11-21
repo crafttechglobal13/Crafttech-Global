@@ -1,19 +1,35 @@
 # ==============================================================================
-# Hostinger Web Server Configuration for CRAFTTECH GLOBAL (Next.js / Node.js)
+# Hostinger Premium Plan (LiteSpeed / Apache) Web Server Configuration
+# CRAFTTECH GLOBAL - Optimized for Static HTML Export & Clean URLs
 # ==============================================================================
 
-DirectoryIndex server.js app.js index.html
+DirectoryIndex out/index.html index.html index.php
 
 # Prevent 403 Forbidden directory listing error
-Options -Indexes
+Options -Indexes +FollowSymLinks
 
-# LiteSpeed / Apache Reverse Proxy to Node.js backend (port 3000)
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteRule ^$ http://127.0.0.1:3000/ [P,L]
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)$ http://127.0.0.1:3000/$1 [P,L]
+    RewriteBase /
+
+    # 1. If root URL requested, serve out/index.html
+    RewriteRule ^$ out/index.html [L]
+
+    # 2. If requesting directly inside out/, serve it directly
+    RewriteCond %{REQUEST_URI} ^/out/
+    RewriteRule ^ - [L]
+
+    # 3. If exact file exists in out/, serve it
+    RewriteCond %{DOCUMENT_ROOT}/out%{REQUEST_URI} -f [OR]
+    RewriteCond %{DOCUMENT_ROOT}/out%{REQUEST_URI} -d
+    RewriteRule ^(.*)$ out/$1 [L]
+
+    # 4. If path has index.html inside out/, serve it
+    RewriteCond %{DOCUMENT_ROOT}/out/$1/index.html -f
+    RewriteRule ^(.*)/?$ out/$1/index.html [L]
+
+    # 5. Fallback 404 handler
+    ErrorDocument 404 /out/404/index.html
 </IfModule>
 
 <IfModule mod_negotiation.c>
