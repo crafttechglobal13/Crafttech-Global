@@ -67,3 +67,4 @@ Once live, access your administrative dashboard:
 - **URL:** `https://yourdomain.com/admin`
 - **Email:** `admin@crafttechglobal.com`
 - **Password:** `crafttech@admin2026`
+
