@@ -1,8 +1,21 @@
-# Hostinger LiteSpeed / Apache Reverse Proxy to Next.js
+# ==============================================================================
+# Hostinger Web Server Configuration for CRAFTTECH GLOBAL (Next.js / Node.js)
+# ==============================================================================
+
+DirectoryIndex server.js app.js index.html
+
+# Prevent 403 Forbidden directory listing error
+Options -Indexes
+
+# LiteSpeed / Apache Reverse Proxy to Node.js backend (port 3000)
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteRule ^$ http://127.0.0.1:3000/ [P,L]
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(.*)$ http://127.0.0.1:3000/$1 [P,L]
+</IfModule>
+
+<IfModule mod_negotiation.c>
+    Options -MultiViews
 </IfModule>

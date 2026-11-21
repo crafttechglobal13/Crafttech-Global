@@ -25,3 +25,4 @@ app.prepare().then(() => {
     console.log(`> CRAFTTECH GLOBAL running on port ${port} (Production)`);
   });
 });
+
