@@ -33,19 +33,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const savedUser = localStorage.getItem("crafttech_user");
       if (savedUser) {
         setUser(JSON.parse(savedUser));
-      } else {
-        // default customer session for seamless demo experience
-        const defaultUser: User = {
-          id: "usr_sarah_01",
-          name: "Sarah Montgomery",
-          email: "sarah.m@crafttechglobal.com",
-          role: "CUSTOMER",
-          phone: "+1 (555) 382-9012",
-          image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
-          isVerified: true,
-        };
-        setUser(defaultUser);
-        localStorage.setItem("crafttech_user", JSON.stringify(defaultUser));
       }
     } catch (e) {
       console.error("Failed to load user session", e);
@@ -58,16 +45,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     // Simulating authentication
     const cleanEmail = email.toLowerCase().trim();
     if (cleanEmail === "admin@crafttechglobal.com") {
+      // Verify admin credentials
+      if (password && password.trim() !== "crafttech@admin2026") {
+        setIsLoading(false);
+        return { success: false, error: "Invalid administrative key or password." };
+      }
       const adminUser: User = {
         id: "usr_admin_001",
         name: "CRAFTTECH Administrator",
         email: "admin@crafttechglobal.com",
         role: "ADMIN",
-        phone: "+91 98765 43210",
         isVerified: true,
       };
       setUser(adminUser);
       localStorage.setItem("crafttech_user", JSON.stringify(adminUser));
+      document.cookie = "crafttech_admin_session=active; path=/; max-age=86400; SameSite=Strict";
       setIsLoading(false);
       return { success: true };
     }
@@ -119,6 +111,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const logout = () => {
     setUser(null);
     localStorage.removeItem("crafttech_user");
+    if (typeof document !== "undefined") {
+      document.cookie = "crafttech_admin_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
   };
 
   const isAdmin = user?.role === "ADMIN";

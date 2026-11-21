@@ -14,10 +14,20 @@
 /build
 dist
 
-# Environment variables
+# Environment variables & secrets
 .env*.local
 .env
 !.env.example
+*.pem
+*.key
+*.cert
+*.crt
+id_rsa
+id_rsa.pub
+*.sql
+*.dump
+credentials.json
+secrets.json
 
 # Debug / logs
 npm-debug.log*
@@ -42,3 +52,4 @@ Thumbs.db
 .vscode/
 *.sublime-project
 *.sublime-workspace
+

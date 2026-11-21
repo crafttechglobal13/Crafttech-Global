@@ -24,6 +24,43 @@ export default function AccountPage() {
 
   const orders = dbService.getOrders();
 
+  if (!user) {
+    return (
+      <div className="max-w-md mx-auto px-4 py-16 sm:py-24 text-center space-y-6">
+        <div className="bg-white/85 rounded-xl border border-[#D4A437]/40 p-8 shadow-sm space-y-5">
+          <div className="w-14 h-14 rounded-full bg-[#FAF5EE] border border-[#D4A437]/50 flex items-center justify-center mx-auto text-[#7A0D2E]">
+            <UserIcon className="w-7 h-7" />
+          </div>
+          <div className="space-y-2">
+            <span className="text-[10px] font-bold tracking-widest text-[#D4A437] uppercase">
+              Private Patron Portal
+            </span>
+            <h1 className="font-serif text-2xl font-bold text-[#1A1A1A]">
+              Member Sign-In Required
+            </h1>
+            <p className="text-xs text-neutral-600 leading-relaxed">
+              Please authenticate your patron account to securely view order history, delivery tracking, and personal credentials.
+            </p>
+          </div>
+          <div className="pt-2 flex flex-col gap-3">
+            <Link
+              href="/login"
+              className="bg-[#7A0D2E] text-white text-xs font-semibold py-3 px-6 rounded-full hover:bg-[#6B0B28] transition-colors uppercase tracking-wider shadow-xs"
+            >
+              Sign In to Your Account
+            </Link>
+            <Link
+              href="/signup"
+              className="border border-[#7A0D2E] text-[#7A0D2E] text-xs font-semibold py-3 px-6 rounded-full hover:bg-[#FAF5EE] transition-colors uppercase tracking-wider"
+            >
+              Create New Patron Account
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-8">
       {/* Account Header */}
@@ -226,7 +263,7 @@ export default function AccountPage() {
                   <input
                     type="text"
                     readOnly
-                    value={user?.name || "Sarah Montgomery"}
+                    value={user?.name || ""}
                     className="w-full bg-[#FAF5EE] border border-neutral-300 rounded p-2 text-neutral-700"
                   />
                 </div>
@@ -235,7 +272,7 @@ export default function AccountPage() {
                   <input
                     type="email"
                     readOnly
-                    value={user?.email || "sarah.m@crafttechglobal.com"}
+                    value={user?.email || ""}
                     className="w-full bg-[#FAF5EE] border border-neutral-300 rounded p-2 text-neutral-700"
                   />
                 </div>
@@ -244,7 +281,7 @@ export default function AccountPage() {
                   <input
                     type="tel"
                     readOnly
-                    value={user?.phone || "+1 (555) 382-9012"}
+                    value={user?.phone || "Not configured"}
                     className="w-full bg-[#FAF5EE] border border-neutral-300 rounded p-2 text-neutral-700"
                   />
                 </div>
@@ -268,10 +305,9 @@ export default function AccountPage() {
                 <span className="font-bold text-[#7A0D2E] text-[10px] uppercase block tracking-wider">
                   Default Residential Destination
                 </span>
-                <p className="font-bold text-[#1A1A1A]">Sarah Montgomery</p>
-                <p className="text-neutral-600">742 Evergreen Terrace, Penthouse B</p>
-                <p className="text-neutral-600">New York, NY 10001, United States</p>
-                <p className="text-neutral-600">Phone: +1 (555) 382-9012</p>
+                <p className="font-bold text-[#1A1A1A]">{user?.name || "Patron Member"}</p>
+                <p className="text-neutral-600">No saved address configured yet.</p>
+                <p className="text-neutral-500 text-[11px]">Your delivery address will be saved securely upon checkout.</p>
               </div>
             </div>
           )}

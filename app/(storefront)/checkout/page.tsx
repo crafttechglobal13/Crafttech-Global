@@ -30,17 +30,17 @@ export default function CheckoutPage() {
 
   // Form State
   const [formData, setFormData] = useState({
-    fullName: user?.name || "Sarah Montgomery",
-    email: user?.email || "sarah.m@crafttechglobal.com",
-    phone: user?.phone || "+1 (555) 382-9012",
-    street: "742 Evergreen Terrace",
-    apartment: "Penthouse B",
-    city: "New York",
-    state: "NY",
-    postalCode: "10001",
-    country: "United States",
+    fullName: user?.name || "",
+    email: user?.email || "",
+    phone: user?.phone || "",
+    street: "",
+    apartment: "",
+    city: "",
+    state: "",
+    postalCode: "",
+    country: "India",
     shippingMethod: "EXPRESS",
-    paymentMethod: "STRIPE" as "STRIPE" | "RAZORPAY" | "COD",
+    paymentMethod: "RAZORPAY" as "STRIPE" | "RAZORPAY" | "COD",
   });
 
   if (items.length === 0) {
