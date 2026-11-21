@@ -7,7 +7,7 @@ export default function AdminSettingsPage() {
   const [settings, setSettings] = useState({
     companyName: "CRAFTTECH GLOBAL",
     tagline: "Rooted in Heritage. Designed for the World.",
-    contactEmail: "care@crafttechglobal.com",
+    contactEmail: "contact@crafttechglobal.com",
     contactPhone: "+91 90792 12937",
     headquarters: "H - 13, Gandhi Nagar, Naka Madaar, Ajmer - 305001, Rajasthan, India",
     defaultCurrency: "INR",

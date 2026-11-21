@@ -333,8 +333,8 @@ export default function AboutPage() {
                     <strong className="block text-sm text-[#1A1A1A] font-serif mb-0.5">
                       Client Services & Trade Liaison:
                     </strong>
-                    <p>Phone: +91 90792 12937</p>
-                    <p>WhatsApp / Direct: +91 90792 12937</p>
+                    <p>Phone: <a href="tel:+919079212937" className="hover:text-[#7A0D2E] underline">+91 90792 12937</a></p>
+                    <p>WhatsApp: <a href="https://wa.me/919079212937" target="_blank" rel="noreferrer" className="hover:text-[#7A0D2E] underline text-[#25D366] font-semibold">+91 90792 12937</a></p>
                   </div>
                 </div>
 
@@ -344,10 +344,13 @@ export default function AboutPage() {
                   </div>
                   <div className="text-xs text-neutral-700">
                     <strong className="block text-sm text-[#1A1A1A] font-serif mb-0.5">
-                      Electronic Mail:
+                      Mail:
                     </strong>
-                    <p>care@crafttechglobal.com</p>
-                    <p>trade@crafttechglobal.com</p>
+                    <p>
+                      <a href="mailto:contact@crafttechglobal.com" className="hover:text-[#7A0D2E] underline font-medium">
+                        contact@crafttechglobal.com
+                      </a>
+                    </p>
                   </div>
                 </div>
               </div>

@@ -46,24 +46,54 @@ function ContactFormInner() {
       },
     });
     setSubmitted(true);
+
+    // Form integration with contact@crafttechglobal.com
+    const mailSubject = encodeURIComponent(`[Website Inquiry] ${formData.subject}`);
+    const mailBody = encodeURIComponent(
+      `Hello CRAFTTECH GLOBAL,\n\nName: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nService Interested: ${formData.service || "General Inquiry"}\nSubject: ${formData.subject}\n\nMessage:\n${formData.message}\n`
+    );
+    window.location.href = `mailto:contact@crafttechglobal.com?subject=${mailSubject}&body=${mailBody}`;
   };
 
   if (submitted) {
     return (
-      <div className="text-center py-12 space-y-3">
+      <div className="text-center py-10 space-y-4">
         <CheckCircle className="w-14 h-14 text-green-700 mx-auto" />
         <h3 className="font-serif text-xl font-bold text-[#1A1A1A]">
-          Message Delivered to Concierge
+          Inquiry Successfully Submitted
         </h3>
-        <p className="text-xs text-neutral-600 max-w-sm mx-auto">
-          Thank you for reaching out. A senior CRAFTTECH GLOBAL specialist will respond within 4 hours.
+        <p className="text-xs text-neutral-600 max-w-md mx-auto leading-relaxed">
+          Thank you, <strong className="text-[#1A1A1A]">{formData.name}</strong>. Your message is being sent to{" "}
+          <strong className="text-[#7A0D2E]">contact@crafttechglobal.com</strong>. Our team will review your requirements and respond within 4 hours.
         </p>
-        <button
-          onClick={() => setSubmitted(false)}
-          className="bg-[#7A0D2E] text-white text-xs px-6 py-2 rounded-full font-semibold"
-        >
-          Send Another Message
-        </button>
+        <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
+          <a
+            href={`https://wa.me/919079212937?text=${encodeURIComponent(
+              `Hello CRAFTTECH GLOBAL, I just submitted an inquiry on your website regarding "${formData.subject}". My name is ${formData.name}.`
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-[#25D366] text-white text-xs font-semibold px-5 py-2.5 rounded-full hover:bg-[#20ba59] transition-all shadow-xs"
+          >
+            <span>Chat on WhatsApp (+91 90792 12937)</span>
+          </a>
+          <button
+            onClick={() => {
+              setSubmitted(false);
+              setFormData({
+                name: "",
+                email: "",
+                phone: "",
+                service: "",
+                subject: "General Customer Support",
+                message: "",
+              });
+            }}
+            className="bg-[#7A0D2E] text-white text-xs px-6 py-2.5 rounded-full font-semibold hover:bg-[#6B0B28] transition-colors"
+          >
+            Send Another Message
+          </button>
+        </div>
       </div>
     );
   }
@@ -224,16 +254,31 @@ export default function ContactPage() {
               <div className="flex items-start gap-3">
                 <Phone className="w-5 h-5 text-[#7A0D2E] flex-shrink-0 mt-0.5" />
                 <div>
-                  <strong className="block text-[#1A1A1A]">Client Services Hotline:</strong>
-                  <span>+91 90792 12937</span>
+                  <strong className="block text-[#1A1A1A]">Phone & WhatsApp:</strong>
+                  <div className="space-y-0.5">
+                    <a href="tel:+919079212937" className="hover:text-[#7A0D2E] underline block">
+                      +91 90792 12937
+                    </a>
+                    <a
+                      href="https://wa.me/919079212937"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#25D366] font-semibold hover:underline inline-flex items-center gap-1"
+                    >
+                      <span>Direct WhatsApp Chat</span>
+                      <span>↗</span>
+                    </a>
+                  </div>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
                 <Mail className="w-5 h-5 text-[#7A0D2E] flex-shrink-0 mt-0.5" />
                 <div>
-                  <strong className="block text-[#1A1A1A]">Official Email:</strong>
-                  <span>care@crafttechglobal.com</span>
+                  <strong className="block text-[#1A1A1A]">Mail:</strong>
+                  <a href="mailto:contact@crafttechglobal.com" className="hover:text-[#7A0D2E] underline font-medium">
+                    contact@crafttechglobal.com
+                  </a>
                 </div>
               </div>
 
