@@ -33,13 +33,13 @@ export default function AccountPage() {
           </div>
           <div className="space-y-2">
             <span className="text-[10px] font-bold tracking-widest text-[#D4A437] uppercase">
-              Private Patron Portal
+              Customer Account
             </span>
             <h1 className="font-serif text-2xl font-bold text-[#1A1A1A]">
-              Member Sign-In Required
+              Login to Your Account
             </h1>
             <p className="text-xs text-neutral-600 leading-relaxed">
-              Please authenticate your patron account to securely view order history, delivery tracking, and personal credentials.
+              Please log in or register to view your order history, track deliveries, and manage your account details.
             </p>
           </div>
           <div className="pt-2 flex flex-col gap-3">
@@ -47,13 +47,13 @@ export default function AccountPage() {
               href="/login"
               className="bg-[#7A0D2E] text-white text-xs font-semibold py-3 px-6 rounded-full hover:bg-[#6B0B28] transition-colors uppercase tracking-wider shadow-xs"
             >
-              Sign In to Your Account
+              Login / Sign In
             </Link>
             <Link
               href="/signup"
               className="border border-[#7A0D2E] text-[#7A0D2E] text-xs font-semibold py-3 px-6 rounded-full hover:bg-[#FAF5EE] transition-colors uppercase tracking-wider"
             >
-              Create New Patron Account
+              Sign Up / Register
             </Link>
           </div>
         </div>
@@ -75,7 +75,7 @@ export default function AccountPage() {
           </div>
           <div>
             <span className="text-[10px] font-bold tracking-widest text-[#D4A437] uppercase">
-              CRAFTTECH Member Patron
+              CRAFTTECH Member
             </span>
             <h1 className="font-serif text-xl sm:text-2xl font-bold text-[#1A1A1A]">
               {user?.name || "Sarah Montgomery"}
@@ -132,7 +132,7 @@ export default function AccountPage() {
           >
             <span className="flex items-center gap-2">
               <UserIcon className="w-4 h-4" />
-              <span>Patron Profile</span>
+              <span>My Profile</span>
             </span>
           </button>
 
@@ -288,7 +288,7 @@ export default function AccountPage() {
                 <div>
                   <label className="font-semibold text-neutral-600 block mb-1">Account Standing</label>
                   <span className="inline-block px-3 py-1.5 bg-green-100 text-green-800 rounded font-semibold text-xs mt-0.5">
-                    Verified Global Patron
+                    Verified Member
                   </span>
                 </div>
               </div>
@@ -305,7 +305,7 @@ export default function AccountPage() {
                 <span className="font-bold text-[#7A0D2E] text-[10px] uppercase block tracking-wider">
                   Default Residential Destination
                 </span>
-                <p className="font-bold text-[#1A1A1A]">{user?.name || "Patron Member"}</p>
+                <p className="font-bold text-[#1A1A1A]">{user?.name || "Valued Member"}</p>
                 <p className="text-neutral-600">No saved address configured yet.</p>
                 <p className="text-neutral-500 text-[11px]">Your delivery address will be saved securely upon checkout.</p>
               </div>

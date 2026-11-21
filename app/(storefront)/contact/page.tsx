@@ -12,7 +12,7 @@ function ContactFormInner() {
     email: "",
     phone: "",
     service: "",
-    subject: "General Patron Concierge",
+    subject: "General Customer Support",
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
@@ -24,7 +24,7 @@ function ContactFormInner() {
         ...prev,
         service: serviceParam,
         subject:
-          prev.subject === "General Patron Concierge"
+          prev.subject === "General Customer Support"
             ? `Technology Consultation: ${serviceParam}`
             : prev.subject,
       }));
@@ -124,7 +124,7 @@ function ContactFormInner() {
             onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
             className="w-full bg-[#FAF5EE] border border-[#D4A437]/40 rounded p-2.5 focus:outline-none focus:border-[#7A0D2E] font-medium"
           >
-            <option value="General Patron Concierge">General Patron Concierge</option>
+            <option value="General Customer Support">General Customer Support</option>
             <option value="Technology & Digital Services Consultation">Technology & Digital Services Consultation</option>
             <option value="Order Tracking & Transit">Order Tracking & Transit</option>
             <option value="Bespoke Sizing Assistance">Bespoke Sizing Assistance</option>

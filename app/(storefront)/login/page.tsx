@@ -47,7 +47,7 @@ export default function LoginPage() {
         <div className="text-center space-y-2">
           <BrandLogo variant="full" size="md" className="mx-auto" />
           <span className="text-[10px] font-bold tracking-widest text-[#D4A437] uppercase block pt-1">
-            Patron Access
+            Customer Login
           </span>
           <h1 className="font-serif text-2xl font-bold text-[#1A1A1A]">Welcome Back</h1>
           <p className="text-xs text-neutral-500">Sign in to view your orders, saved addresses, and wishlist.</p>
@@ -141,7 +141,7 @@ export default function LoginPage() {
         <div className="text-center text-xs text-neutral-600 pt-2">
           Don&apos;t have an account yet?{" "}
           <Link href="/signup" className="text-[#7A0D2E] font-bold hover:underline">
-            Register as Patron
+            Sign Up / Register
           </Link>
         </div>
       </div>

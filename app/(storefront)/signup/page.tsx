@@ -146,7 +146,7 @@ export default function SignupPage() {
             disabled={loading}
             className="w-full bg-[#7A0D2E] text-white py-3 rounded-full font-bold uppercase tracking-wider text-xs hover:bg-[#6B0B28] transition-colors shadow-sm disabled:opacity-50 mt-2"
           >
-            {loading ? "Creating Account..." : "Register as Patron"}
+            {loading ? "Creating Account..." : "Create Account / Sign Up"}
           </button>
         </form>
 
