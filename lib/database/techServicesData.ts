@@ -15,6 +15,9 @@ export interface TechService {
   icon: React.ComponentType<{ className?: string }>;
   features: string[];
   serviceParam: string;
+  tags: string[];
+  deliverables: string[];
+  timeline: string;
 }
 
 export const TECH_SERVICES_DATA: TechService[] = [
@@ -31,6 +34,14 @@ export const TECH_SERVICES_DATA: TechService[] = [
       "Responsive website design",
     ],
     serviceParam: "Website Development",
+    tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Fast Loading"],
+    deliverables: [
+      "Custom UI/UX & Responsive Layout",
+      "Clean, SEO-Optimized Codebase",
+      "Cross-Browser & Device QA Testing",
+      "Content Management & Hosting Setup",
+    ],
+    timeline: "2 – 4 Weeks",
   },
   {
     id: "seo",
@@ -46,6 +57,14 @@ export const TECH_SERVICES_DATA: TechService[] = [
       "Local SEO",
     ],
     serviceParam: "SEO Services",
+    tags: ["Keyword Strategy", "Technical Audit", "Core Web Vitals", "Schema Markup"],
+    deliverables: [
+      "Comprehensive Technical SEO Audit",
+      "High-Intent Keyword Map",
+      "On-Page Content & Meta Optimization",
+      "Monthly Ranking & Organic Traffic Reports",
+    ],
+    timeline: "Ongoing (Monthly)",
   },
   {
     id: "digital-marketing",
@@ -60,6 +79,14 @@ export const TECH_SERVICES_DATA: TechService[] = [
       "Lead generation strategies",
     ],
     serviceParam: "Digital Marketing",
+    tags: ["Google Search & Shopping", "Meta Ads", "Retargeting", "Conversion Tracking"],
+    deliverables: [
+      "Targeted Ad Creative & Copywriting",
+      "Audience Segmentation & Funnel Setup",
+      "Conversion Tracking & Pixel Setup",
+      "Weekly ROAS Performance Optimization",
+    ],
+    timeline: "Active Campaign Management",
   },
   {
     id: "shopify-dev",
@@ -74,6 +101,14 @@ export const TECH_SERVICES_DATA: TechService[] = [
       "Store customization",
     ],
     serviceParam: "Shopify Development",
+    tags: ["Shopify Plus", "Liquid", "Storefront API", "Payment Gateways"],
+    deliverables: [
+      "Bespoke Shopify Theme Architecture",
+      "Cart & Checkout Customization",
+      "Payment & Shipping Gateway Setup",
+      "Third-Party App & ERP Synchronization",
+    ],
+    timeline: "2 – 5 Weeks",
   },
   {
     id: "branding-design",
@@ -88,6 +123,14 @@ export const TECH_SERVICES_DATA: TechService[] = [
       "Social media graphics",
     ],
     serviceParam: "Branding & Graphic Design",
+    tags: ["Brand Book", "Vector Logos", "Typography", "Social Media Kits"],
+    deliverables: [
+      "Primary Logo, Secondary Marks & Badges",
+      "Color Palette & Typography Guidelines",
+      "Social Media Templates & Banner Kit",
+      "Packaging & Marketing Print Assets",
+    ],
+    timeline: "1 – 3 Weeks",
   },
   {
     id: "custom-software",
@@ -102,6 +145,13 @@ export const TECH_SERVICES_DATA: TechService[] = [
       "Business automation solutions",
     ],
     serviceParam: "Custom Software Development",
+    tags: ["Full-Stack", "REST & GraphQL APIs", "PostgreSQL", "Cloud Automation"],
+    deliverables: [
+      "Architecture Blueprint & Scope Spec",
+      "Custom Admin / Operator Portals",
+      "Secure REST / GraphQL API Layer",
+      "Automated Webhooks & Reporting",
+    ],
+    timeline: "4 – 8 Weeks",
   },
 ];
-

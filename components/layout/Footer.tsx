@@ -35,7 +35,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-[#D4A437]/20">
           {/* Col 1: Brand Info & Socials */}
-          <div className="lg:col-span-2 space-y-4">
+          <div className="space-y-4">
             <BrandLogo variant="footer" size="lg" />
 
             <p className="text-xs text-[#F7F0E6]/80 leading-relaxed max-w-sm pt-2">
@@ -191,7 +191,55 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Col 4: Customer Support & Newsletter */}
+          {/* Col 4: Technology & Digital Solutions */}
+          <div className="space-y-3">
+            <h4 className="font-serif text-[#D4A437] font-semibold text-sm tracking-wider uppercase flex items-center gap-1.5">
+              <span>Technology</span>
+              <span className="text-[9px] bg-[#D4A437] text-[#1A1A1A] font-bold px-1.5 py-0.2 rounded-full uppercase tracking-wider">
+                New
+              </span>
+            </h4>
+            <ul className="space-y-2 text-xs text-[#F7F0E6]/80">
+              <li>
+                <Link href="/services" className="hover:text-[#D4A437] transition-colors font-medium text-white flex items-center gap-1">
+                  <span>All Tech Services</span>
+                  <span>→</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/services#web-dev" className="hover:text-[#D4A437] transition-colors">
+                  Website Development
+                </Link>
+              </li>
+              <li>
+                <Link href="/services#shopify-dev" className="hover:text-[#D4A437] transition-colors">
+                  Shopify Development
+                </Link>
+              </li>
+              <li>
+                <Link href="/services#seo" className="hover:text-[#D4A437] transition-colors">
+                  SEO & Search Rankings
+                </Link>
+              </li>
+              <li>
+                <Link href="/services#digital-marketing" className="hover:text-[#D4A437] transition-colors">
+                  Digital Marketing & Ads
+                </Link>
+              </li>
+              <li>
+                <Link href="/services#custom-software" className="hover:text-[#D4A437] transition-colors">
+                  Custom Software & APIs
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact?service=General%20Technology%20Consultation#consultation" className="hover:text-[#D4A437] transition-colors text-[#D4A437] font-medium">
+                  Free Tech Consultation
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Col 5: Customer Support & Newsletter */}
           <div className="space-y-3">
             <h4 className="font-serif text-[#D4A437] font-semibold text-sm tracking-wider uppercase">
               Customer Support

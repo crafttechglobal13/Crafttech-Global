@@ -18,6 +18,7 @@ import {
   Tag,
   ShieldCheck,
   LogOut,
+  ArrowRight,
 } from "lucide-react";
 import { useCurrency, CURRENCIES, CurrencyCode } from "@/lib/currency/currencyContext";
 import { useCart } from "@/lib/cart/cartContext";
@@ -494,6 +495,21 @@ export default function Header() {
             >
               About Us
             </Link>
+
+            {/* Highlighted Technology Services Link */}
+            <Link
+              href="/services"
+              className={`font-semibold tracking-wide transition-all inline-flex items-center gap-1.5 px-3 py-1 rounded-full border text-xs shadow-xs ${
+                pathname === "/services"
+                  ? "bg-[#0D2D5B] text-[#D4A437] border-[#D4A437]"
+                  : "border-[#D4A437]/70 text-[#0D2D5B] bg-[#FAF5EE] hover:bg-[#0D2D5B] hover:text-[#D4A437] hover:border-[#D4A437]"
+              }`}
+            >
+              <span>Tech Services</span>
+              <span className="text-[9px] bg-[#D4A437] text-[#1A1A1A] font-bold px-1.5 py-0.2 rounded-full uppercase tracking-wider">
+                New
+              </span>
+            </Link>
           </nav>
 
           {/* Right Actions: Search, Account, Wishlist, Cart */}
@@ -614,9 +630,34 @@ export default function Header() {
             <div className="py-4 px-6 space-y-4 font-sans text-sm">
               <Link
                 href="/"
+                onClick={() => setIsMobileMenuOpen(false)}
                 className="block text-[#1A1A1A] font-medium py-1.5 border-b border-black/5 hover:text-[#7A0D2E]"
               >
                 Home
+              </Link>
+
+              {/* Highlighted Tech Services Card for Mobile */}
+              <Link
+                href="/services"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`block p-3.5 rounded-xl border transition-all ${
+                  pathname === "/services"
+                    ? "bg-[#0D2D5B] border-[#D4A437] text-white shadow-md"
+                    : "bg-white border-[#D4A437]/70 text-[#0D2D5B] hover:bg-[#0D2D5B] hover:text-white"
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="font-serif font-bold text-sm">Tech & Digital Services</span>
+                    <span className="text-[9px] bg-[#D4A437] text-[#1A1A1A] font-bold px-1.5 py-0.5 rounded-full uppercase tracking-wider">
+                      New
+                    </span>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-[#D4A437]" />
+                </div>
+                <p className="text-[11px] text-neutral-500 mt-1">
+                  Websites, Shopify, SEO, Digital Marketing & Custom Software
+                </p>
               </Link>
 
               <div className="border-b border-black/5 pb-2">
