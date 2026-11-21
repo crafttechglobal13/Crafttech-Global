@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { Ruler, CheckCircle, Palette, Sparkles, ShieldCheck } from "lucide-react";
+import { Ruler, CheckCircle, Palette, ShieldCheck } from "lucide-react";
 import { dbService } from "@/lib/database/db";
 
 export default function CustomOrdersPage() {

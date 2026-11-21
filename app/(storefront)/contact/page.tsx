@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { Mail, Phone, MapPin, Clock, CheckCircle, Globe, Sparkles } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, CheckCircle, Globe } from "lucide-react";
 import { dbService } from "@/lib/database/db";
 
 function ContactFormInner() {
@@ -75,8 +75,7 @@ function ContactFormInner() {
           Send a Message
         </h3>
         {formData.service && (
-          <span className="inline-flex items-center gap-1 bg-[#FAF5EE] text-[#7A0D2E] border border-[#D4A437]/40 px-2.5 py-0.5 rounded-full text-[10px] font-bold">
-            <Sparkles className="w-3 h-3 text-[#D4A437]" />
+          <span className="inline-flex items-center bg-[#FAF5EE] text-[#7A0D2E] border border-[#D4A437]/40 px-3 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase">
             <span>Consultation Request</span>
           </span>
         )}

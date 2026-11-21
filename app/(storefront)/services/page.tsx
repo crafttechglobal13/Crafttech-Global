@@ -9,7 +9,6 @@ import {
   Palette,
   Code2,
   ArrowRight,
-  Sparkles,
   CheckCircle2,
   MessageSquare,
   ShieldCheck,
@@ -35,8 +34,7 @@ export default function ServicesPage() {
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#7A0D2E]/20 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 text-center space-y-6">
-          <div className="inline-flex items-center gap-2 bg-[#FAF5EE]/10 border border-[#D4A437]/50 px-4 py-1.5 rounded-full text-xs text-[#D4A437] font-semibold tracking-wider uppercase backdrop-blur-xs">
-            <Sparkles className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center bg-[#FAF5EE]/10 border border-[#D4A437]/50 px-4 py-1.5 rounded-full text-xs text-[#D4A437] font-semibold tracking-[0.2em] uppercase backdrop-blur-xs">
             <span>Digital Engineering & Strategic Growth</span>
           </div>
 

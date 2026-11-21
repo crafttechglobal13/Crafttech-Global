@@ -10,7 +10,6 @@ import {
   Palette,
   Code2,
   ArrowRight,
-  Sparkles,
   CheckCircle2,
   MessageSquare,
 } from "lucide-react";
@@ -30,8 +29,7 @@ export default function TechServicesSection() {
 
         {/* Section Header */}
         <div className="relative z-10 text-center max-w-3xl mx-auto space-y-4 mb-12">
-          <div className="inline-flex items-center gap-2 bg-[#0D2D5B] text-white px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase border border-[#D4A437]/50 shadow-xs">
-            <Sparkles className="w-3.5 h-3.5 text-[#D4A437]" />
+          <div className="inline-flex items-center bg-[#0D2D5B] text-[#D4A437] px-4 py-1.5 rounded-full text-xs font-semibold tracking-[0.2em] uppercase border border-[#D4A437]/50 shadow-xs">
             <span>Digital Excellence • Enterprise Innovation</span>
           </div>
 

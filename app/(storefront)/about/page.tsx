@@ -15,7 +15,6 @@ import {
   Clock,
   Navigation,
   ExternalLink,
-  Sparkles,
   Code2,
   Globe,
   Search,
@@ -138,8 +137,7 @@ export default function AboutPage() {
         <div className="bg-gradient-to-b from-[#FAF5EE] via-white to-[#FAF5EE] rounded-3xl border-2 border-[#D4A437]/40 p-8 sm:p-12 lg:p-16 shadow-sm space-y-12">
           {/* Header & Company Introduction */}
           <div className="max-w-3xl mx-auto text-center space-y-4">
-            <div className="inline-flex items-center gap-2 bg-[#0D2D5B] text-white px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase border border-[#D4A437]/50 shadow-xs">
-              <Sparkles className="w-3.5 h-3.5 text-[#D4A437]" />
+            <div className="inline-flex items-center bg-[#0D2D5B] text-[#D4A437] px-4 py-1.5 rounded-full text-xs font-semibold tracking-[0.2em] uppercase border border-[#D4A437]/50 shadow-xs">
               <span>Modern Innovation & Heritage Synergy</span>
             </div>
 
@@ -270,8 +268,7 @@ export default function AboutPage() {
       {/* Corporate Headquarters & Atelier with Interactive Map */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="space-y-4 text-center max-w-2xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 bg-[#FAF5EE] border border-[#D4A437]/40 px-3.5 py-1.5 rounded-full text-xs text-[#7A0D2E] font-semibold">
-            <Sparkles className="w-3.5 h-3.5 text-[#D4A437]" />
+          <div className="inline-flex items-center bg-[#FAF5EE] border border-[#D4A437]/40 px-3.5 py-1.5 rounded-full text-xs text-[#7A0D2E] font-semibold tracking-wider uppercase">
             <span>Official Corporate Presence</span>
           </div>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1A1A1A]">

@@ -14,7 +14,6 @@ import {
   Ruler,
   Check,
   Share2,
-  Sparkles,
   CheckCircle,
 } from "lucide-react";
 import { dbService } from "@/lib/database/db";
