@@ -196,8 +196,8 @@ export default function AboutPage() {
                     <strong className="block text-sm text-[#1A1A1A] font-serif mb-0.5">
                       Client Services & Trade Liaison:
                     </strong>
-                    <p>Phone: +91 98765 43210</p>
-                    <p>International: +1 (800) 492-CRAFT</p>
+                    <p>Phone: +91 90792 12937</p>
+                    <p>WhatsApp / Direct: +91 90792 12937</p>
                   </div>
                 </div>
 

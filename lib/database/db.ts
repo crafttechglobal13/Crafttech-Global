@@ -69,7 +69,7 @@ if (!global.__crafttech_orders) {
       orderNumber: "CG-2026-9812",
       customerName: "Patron Client",
       email: "patron@crafttechglobal.com",
-      phone: "+91 98765 00000",
+      phone: "+91 90792 12937",
       currency: "INR",
       subtotal: 41900,
       discount: 4190,
@@ -86,7 +86,7 @@ if (!global.__crafttech_orders) {
         state: "RJ",
         postalCode: "305001",
         country: "India",
-        phone: "+91 98765 00000",
+        phone: "+91 90792 12937",
       },
       items: [
         {

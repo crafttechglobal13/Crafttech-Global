@@ -8,7 +8,7 @@ export default function AdminSettingsPage() {
     companyName: "CRAFTTECH GLOBAL",
     tagline: "Rooted in Heritage. Designed for the World.",
     contactEmail: "care@crafttechglobal.com",
-    contactPhone: "+91 98765 43210",
+    contactPhone: "+91 90792 12937",
     headquarters: "H - 13, Gandhi Nagar, Naka Madaar, Ajmer - 305001, Rajasthan, India",
     defaultCurrency: "INR",
     announcementText: "✈ International Shipping Available | 🎁 Discover Our New Collection | 🏷 Free Shipping on Orders Above $100",

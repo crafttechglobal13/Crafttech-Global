@@ -78,7 +78,7 @@ export default function ContactPage() {
                 <Phone className="w-5 h-5 text-[#7A0D2E] flex-shrink-0 mt-0.5" />
                 <div>
                   <strong className="block text-[#1A1A1A]">Client Services Hotline:</strong>
-                  <span>+91 98765 43210 / +1 (800) 492-CRAFT</span>
+                  <span>+91 90792 12937</span>
                 </div>
               </div>
 

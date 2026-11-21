@@ -74,7 +74,7 @@ async function main() {
       siteName: "CRAFTTECH GLOBAL",
       tagline: "Bringing Traditional Craftsmanship to Modern Living.",
       contactEmail: "care@crafttechglobal.com",
-      contactPhone: "+91 98765 43210",
+      contactPhone: "+91 90792 12937",
       defaultCurrency: "INR",
       supportedCurrencies: "INR,USD,GBP,EUR",
       announcementText:

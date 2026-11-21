@@ -531,7 +531,7 @@ model SiteSettings {
   siteName            String   @default("CRAFTTECH GLOBAL")
   tagline             String   @default("Rooted in Heritage. Designed for the World.")
   contactEmail        String   @default("care@crafttechglobal.com")
-  contactPhone        String   @default("+91 98765 43210")
+  contactPhone        String   @default("+91 90792 12937")
   address             String   @default("Crafttech Global Heritage Plaza, Jaipur & Bhadohi, India")
   defaultCurrency     String   @default("INR")
   supportedCurrencies String   @default("INR,USD,GBP,EUR")
