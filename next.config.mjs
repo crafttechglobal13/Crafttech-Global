@@ -43,7 +43,7 @@ const securityHeaders = [
   // Content Security Policy
   {
     key: 'Content-Security-Policy',
-    value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; frame-src 'self' https://maps.google.com https://www.google.com; connect-src 'self' https:;",
+    value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; frame-src 'self' https://maps.google.com https://www.google.com https://*.firebaseapp.com https://accounts.google.com; connect-src 'self' https:;",
   },
 ];
 
