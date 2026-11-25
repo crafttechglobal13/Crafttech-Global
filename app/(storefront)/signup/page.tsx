@@ -3,8 +3,26 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Lock, Mail, User, ShieldCheck, CheckCircle2, ArrowRight, RefreshCw, AlertCircle } from "lucide-react";
+import {
+  Lock,
+  Mail,
+  User,
+  ShieldCheck,
+  CheckCircle2,
+  ArrowRight,
+  RefreshCw,
+  AlertCircle,
+  Eye,
+  EyeOff,
+  ShieldAlert,
+} from "lucide-react";
 import { useAuth } from "@/lib/auth/authContext";
+import {
+  authRateLimiter,
+  sanitizeInput,
+  isValidEmail,
+  calculatePasswordEntropy,
+} from "@/lib/security/authSecurity";
 import BrandLogo from "@/components/ui/BrandLogo";
 
 export default function SignupPage() {
@@ -14,6 +32,8 @@ export default function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [agree, setAgree] = useState(true);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -25,36 +45,66 @@ export default function SignupPage() {
   const [resending, setResending] = useState(false);
   const [resendStatus, setResendStatus] = useState("");
 
+  // Real-time password entropy calculation (DSA bitmask)
+  const passwordEntropy = calculatePasswordEntropy(password);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setResendStatus("");
 
+    // 1. Input Sanitization (O(n) linear scan)
+    const cleanName = sanitizeInput(name);
+    const cleanEmail = sanitizeInput(email).toLowerCase();
+
+    // 2. Strict Email Verification
+    if (!isValidEmail(cleanEmail)) {
+      setError("Please provide a valid electronic mail address format.");
+      return;
+    }
+
+    // 3. Password Integrity & Entropy Checks
     if (password !== confirmPassword) {
-      setError("Passwords do not match.");
+      setError("Passwords do not match. Please re-enter.");
       return;
     }
-    if (password.length < 6) {
-      setError("Password must be at least 6 characters long.");
+    if (password.length < 8) {
+      setError("Password must contain at least 8 characters for account security.");
       return;
     }
+    if (passwordEntropy.label === "Weak") {
+      setError("Password is too weak. Please include a mix of uppercase, lowercase, numbers, and symbols.");
+      return;
+    }
+
     if (!agree) {
-      setError("Please accept the terms and conditions.");
+      setError("Please accept the terms and conditions to proceed.");
+      return;
+    }
+
+    // 4. Sliding Window Anti-Abuse Rate Limiting
+    const rateCheck = authRateLimiter.check("signup:rate", 5, 60000);
+    if (!rateCheck.allowed) {
+      setError(
+        `Too many registration requests from this session. Please wait ${rateCheck.retryAfterSec} seconds before trying again.`
+      );
       return;
     }
 
     setLoading(true);
-    const res = await signup(name, email, password);
+    const res = await signup(cleanName, cleanEmail, password);
     setLoading(false);
 
     if (res.success) {
+      authRateLimiter.reset("signup:rate");
       if (res.requiresVerification) {
-        setRegisteredEmail(email);
+        setRegisteredEmail(cleanEmail);
         setVerificationPending(true);
       } else {
         router.push("/account");
       }
     } else {
+      authRateLimiter.record("signup:rate");
       setError(res.error || "Signup failed. Please try again.");
     }
   };
@@ -87,7 +137,7 @@ export default function SignupPage() {
 
   return (
     <div className="max-w-md mx-auto px-4 py-16 sm:py-20">
-      <div className="bg-white/85 rounded-xl border border-[#D4A437]/40 p-6 sm:p-8 shadow-md space-y-6">
+      <div className="bg-white/90 backdrop-blur-sm rounded-xl border border-[#D4A437]/40 p-6 sm:p-8 shadow-md space-y-6">
         <div className="text-center space-y-2">
           <BrandLogo variant="full" size="md" className="mx-auto" />
           <span className="text-[10px] font-bold tracking-widest text-[#D4A437] uppercase block pt-1">
@@ -106,7 +156,7 @@ export default function SignupPage() {
         {/* Verification Success Screen */}
         {verificationPending ? (
           <div className="space-y-5 text-center py-2">
-            <div className="w-16 h-16 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center mx-auto text-emerald-600">
+            <div className="w-16 h-16 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center mx-auto text-emerald-600 shadow-sm">
               <Mail className="w-8 h-8" />
             </div>
 
@@ -149,8 +199,9 @@ export default function SignupPage() {
         ) : (
           <>
             {error && (
-              <div className="bg-red-50 text-red-700 p-2.5 rounded text-xs border border-red-200">
-                {error}
+              <div className="bg-red-50 text-red-700 p-2.5 rounded text-xs border border-red-200 flex items-start gap-2">
+                <AlertCircle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
+                <span className="leading-relaxed">{error}</span>
               </div>
             )}
 
@@ -186,6 +237,7 @@ export default function SignupPage() {
               <span>{googleLoading ? "Connecting to Google..." : "Continue with Google"}</span>
             </button>
 
+            {/* Clean Divider */}
             <div className="relative flex items-center my-5">
               <div className="flex-grow border-t border-neutral-200" />
               <span className="flex-shrink-0 mx-3 text-[11px] text-neutral-400 font-semibold uppercase tracking-wider whitespace-nowrap">
@@ -232,29 +284,81 @@ export default function SignupPage() {
                 <label className="font-semibold text-neutral-800 block mb-1">Password</label>
                 <div className="relative">
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     required
                     placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full bg-[#FAF5EE] border border-[#D4A437]/40 rounded p-2.5 pl-8 focus:outline-none focus:border-[#7A0D2E]"
+                    className="w-full bg-[#FAF5EE] border border-[#D4A437]/40 rounded p-2.5 pl-8 pr-10 focus:outline-none focus:border-[#7A0D2E]"
                   />
                   <Lock className="w-4 h-4 text-neutral-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
+                  
+                  {/* Password Eye Button Toggle */}
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-[#7A0D2E] transition-colors p-1 focus:outline-none"
+                  >
+                    {showPassword ? (
+                      <EyeOff className="w-4 h-4 text-neutral-600" />
+                    ) : (
+                      <Eye className="w-4 h-4 text-neutral-400 hover:text-neutral-700" />
+                    )}
+                  </button>
                 </div>
+
+                {/* Password Strength Meter (DSA Entropy Score) */}
+                {password.length > 0 && (
+                  <div className="mt-1.5 space-y-1">
+                    <div className="flex items-center justify-between text-[10px]">
+                      <span className="text-neutral-500">Security Strength:</span>
+                      <span className={`font-bold ${
+                        passwordEntropy.label === "Strong"
+                          ? "text-emerald-700"
+                          : passwordEntropy.label === "Good"
+                          ? "text-amber-700"
+                          : "text-red-600"
+                      }`}>
+                        {passwordEntropy.label}
+                      </span>
+                    </div>
+                    <div className="w-full h-1 bg-neutral-200 rounded-full overflow-hidden">
+                      <div
+                        className={`h-full transition-all duration-300 ${passwordEntropy.color}`}
+                        style={{ width: `${passwordEntropy.score}%` }}
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div>
                 <label className="font-semibold text-neutral-800 block mb-1">Confirm Password</label>
                 <div className="relative">
                   <input
-                    type="password"
+                    type={showConfirmPassword ? "text" : "password"}
                     required
                     placeholder="••••••••"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="w-full bg-[#FAF5EE] border border-[#D4A437]/40 rounded p-2.5 pl-8 focus:outline-none focus:border-[#7A0D2E]"
+                    className="w-full bg-[#FAF5EE] border border-[#D4A437]/40 rounded p-2.5 pl-8 pr-10 focus:outline-none focus:border-[#7A0D2E]"
                   />
                   <Lock className="w-4 h-4 text-neutral-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
+                  
+                  {/* Confirm Password Eye Button Toggle */}
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-[#7A0D2E] transition-colors p-1 focus:outline-none"
+                  >
+                    {showConfirmPassword ? (
+                      <EyeOff className="w-4 h-4 text-neutral-600" />
+                    ) : (
+                      <Eye className="w-4 h-4 text-neutral-400 hover:text-neutral-700" />
+                    )}
+                  </button>
                 </div>
               </div>
 

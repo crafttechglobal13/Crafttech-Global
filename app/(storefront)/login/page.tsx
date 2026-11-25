@@ -3,8 +3,19 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Lock, Mail, ArrowRight, ShieldCheck, AlertCircle, CheckCircle2, RefreshCw } from "lucide-react";
+import {
+  Lock,
+  Mail,
+  ArrowRight,
+  ShieldCheck,
+  AlertCircle,
+  CheckCircle2,
+  RefreshCw,
+  Eye,
+  EyeOff,
+} from "lucide-react";
 import { useAuth } from "@/lib/auth/authContext";
+import { authRateLimiter, sanitizeInput, isValidEmail } from "@/lib/security/authSecurity";
 import BrandLogo from "@/components/ui/BrandLogo";
 
 export default function LoginPage() {
@@ -12,6 +23,7 @@ export default function LoginPage() {
   const { login, googleLogin, resendVerificationEmail, isFirebaseReady } = useAuth();
   const [email, setEmail] = useState("sarah.m@crafttechglobal.com");
   const [password, setPassword] = useState("password123");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
@@ -23,25 +35,49 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setError("");
     setUnverifiedEmail("");
     setResendStatus("");
 
-    const res = await login(email, password);
+    // 1. Input Sanitization (O(n) security canonicalization)
+    const cleanEmail = sanitizeInput(email).toLowerCase();
+
+    // 2. Strict Email Format Verification
+    if (!isValidEmail(cleanEmail)) {
+      setError("Please provide a valid electronic mail address format.");
+      return;
+    }
+
+    // 3. Sliding Window Rate Limiting (O(1) Anti-Brute-Force defense)
+    const rateCheck = authRateLimiter.check(`login:${cleanEmail}`, 5, 60000);
+    if (!rateCheck.allowed) {
+      setError(
+        `Too many unsuccessful login attempts. For security reasons, please wait ${rateCheck.retryAfterSec} seconds before re-attempting.`
+      );
+      return;
+    }
+
+    setLoading(true);
+    const res = await login(cleanEmail, password);
     setLoading(false);
 
     if (res.success) {
-      if (email.toLowerCase().includes("admin")) {
+      // Clear rate limiting log upon successful authentication
+      authRateLimiter.reset(`login:${cleanEmail}`);
+
+      if (cleanEmail.includes("admin")) {
         router.push("/admin");
       } else {
         router.push("/account");
       }
     } else {
+      // Record failed attempt in sliding window queue
+      authRateLimiter.record(`login:${cleanEmail}`);
+
       if (res.requiresVerification) {
-        setUnverifiedEmail(email);
+        setUnverifiedEmail(cleanEmail);
       }
-      setError(res.error || "Failed to authenticate.");
+      setError(res.error || "Failed to authenticate credentials.");
     }
   };
 
@@ -65,7 +101,7 @@ export default function LoginPage() {
     const res = await resendVerificationEmail();
     setResending(false);
     if (res.success) {
-      setResendStatus("A new verification link has been sent to your email. Please check your inbox and spam folder.");
+      setResendStatus("A new verification link has been dispatched to your email. Check your inbox and spam folder.");
     } else {
       setResendStatus(res.error || "Unable to resend verification link at this moment.");
     }
@@ -73,7 +109,7 @@ export default function LoginPage() {
 
   return (
     <div className="max-w-md mx-auto px-4 py-16 sm:py-20">
-      <div className="bg-white/85 rounded-xl border border-[#D4A437]/40 p-6 sm:p-8 shadow-md space-y-6">
+      <div className="bg-white/90 backdrop-blur-sm rounded-xl border border-[#D4A437]/40 p-6 sm:p-8 shadow-md space-y-6">
         <div className="text-center space-y-2">
           <BrandLogo variant="full" size="md" className="mx-auto" />
           <span className="text-[10px] font-bold tracking-widest text-[#D4A437] uppercase block pt-1">
@@ -123,8 +159,9 @@ export default function LoginPage() {
 
         {/* General Error Message */}
         {error && !unverifiedEmail && (
-          <div className="bg-red-50 text-red-700 p-2.5 rounded text-xs border border-red-200">
-            {error}
+          <div className="bg-red-50 text-red-700 p-2.5 rounded text-xs border border-red-200 flex items-start gap-2">
+            <AlertCircle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
+            <span className="leading-relaxed">{error}</span>
           </div>
         )}
 
@@ -160,6 +197,7 @@ export default function LoginPage() {
           <span>{googleLoading ? "Connecting to Google..." : "Continue with Google"}</span>
         </button>
 
+        {/* Clean Divider */}
         <div className="relative flex items-center my-5">
           <div className="flex-grow border-t border-neutral-200" />
           <span className="flex-shrink-0 mx-3 text-[11px] text-neutral-400 font-semibold uppercase tracking-wider whitespace-nowrap">
@@ -177,6 +215,7 @@ export default function LoginPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                placeholder="name@domain.com"
                 className="w-full bg-[#FAF5EE] border border-[#D4A437]/40 rounded p-2.5 pl-8 focus:outline-none focus:border-[#7A0D2E]"
               />
               <Mail className="w-4 h-4 text-neutral-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
@@ -195,13 +234,28 @@ export default function LoginPage() {
             </div>
             <div className="relative">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-[#FAF5EE] border border-[#D4A437]/40 rounded p-2.5 pl-8 focus:outline-none focus:border-[#7A0D2E]"
+                placeholder="••••••••"
+                className="w-full bg-[#FAF5EE] border border-[#D4A437]/40 rounded p-2.5 pl-8 pr-10 focus:outline-none focus:border-[#7A0D2E]"
               />
               <Lock className="w-4 h-4 text-neutral-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
+              
+              {/* Eye Button Toggle */}
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-[#7A0D2E] transition-colors p-1 focus:outline-none"
+              >
+                {showPassword ? (
+                  <EyeOff className="w-4 h-4 text-neutral-600" />
+                ) : (
+                  <Eye className="w-4 h-4 text-neutral-400 hover:text-neutral-700" />
+                )}
+              </button>
             </div>
           </div>
 
