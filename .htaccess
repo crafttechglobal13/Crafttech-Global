@@ -4,34 +4,54 @@
 # ==============================================================================
 
 DirectoryIndex out/index.html index.html index.php
-
-# Prevent 403 Forbidden directory listing error
 Options -Indexes +FollowSymLinks
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /
 
-    # 1. If root URL requested, serve out/index.html
-    RewriteRule ^$ out/index.html [L]
+    # 1. LOOP PREVENTER: If already rewritten internally, STOP immediately
+    RewriteCond %{ENV:REDIRECT_STATUS} 200
+    RewriteRule ^ - [L]
 
     # 2. If requesting directly inside out/, serve it directly
     RewriteCond %{REQUEST_URI} ^/out/
     RewriteRule ^ - [L]
 
-    # 3. If exact file exists in out/, serve it
-    RewriteCond %{DOCUMENT_ROOT}/out%{REQUEST_URI} -f [OR]
-    RewriteCond %{DOCUMENT_ROOT}/out%{REQUEST_URI} -d
+    # 3. If exact file exists in out/, serve it directly
+    RewriteCond %{DOCUMENT_ROOT}/out%{REQUEST_URI} -f
     RewriteRule ^(.*)$ out/$1 [L]
 
-    # 4. If path has index.html inside out/, serve it
-    RewriteCond %{DOCUMENT_ROOT}/out/$1/index.html -f
+    # 4. If directory has index.html inside out/, serve it directly
+    RewriteCond %{DOCUMENT_ROOT}/out%{REQUEST_URI}/index.html -f
     RewriteRule ^(.*)/?$ out/$1/index.html [L]
 
     # 5. Fallback 404 handler
     ErrorDocument 404 /out/404/index.html
 </IfModule>
 
-<IfModule mod_negotiation.c>
-    Options -MultiViews
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 1 month"
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+
+<IfModule mod_headers.c>
+    <FilesMatch "\.(js|css|webp|png|jpg|jpeg|gif|ico|svg|woff|woff2)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    <FilesMatch "\.(html|htm)$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+    </FilesMatch>
+</IfModule>
+
+<IfModule Litespeed>
+    RewriteEngine On
+    RewriteRule .* - [E=noconntimeout:1]
 </IfModule>

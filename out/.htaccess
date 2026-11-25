@@ -1,32 +1,42 @@
 # ==============================================================================
-# Hostinger Premium Plan (LiteSpeed / Apache) Web Server Configuration
-# CRAFTTECH GLOBAL - Optimized for Static HTML Export & Clean URLs
+# CRAFTTECH GLOBAL - Hostinger Premium (LiteSpeed / Apache) Web Server Config
+# Loop-Proof Static HTML Hosting & Anti-429 Configuration
 # ==============================================================================
 
-DirectoryIndex index.html
+DirectoryIndex index.html index.htm
 Options -Indexes +FollowSymLinks
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /
 
-    # Prevent trailing slash redirect loops
-    RewriteCond %{REQUEST_FILENAME} !-f
+    # 1. LOOP PREVENTER: If already rewritten internally, STOP immediately
+    RewriteCond %{ENV:REDIRECT_STATUS} 200
+    RewriteRule ^ - [L]
+
+    # 2. DIRECTORY & FILE BYPASS: If file or directory exists, STOP immediately
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # 3. If exact file exists with .html extension, serve it
+    RewriteCond %{REQUEST_FILENAME}.html -f
+    RewriteRule ^(.*)$ $1.html [L]
+
+    # 4. If directory has index.html, serve it
     RewriteCond %{REQUEST_FILENAME}/index.html -f
     RewriteRule ^(.*)$ $1/index.html [L]
 
-    # Custom 404 handler
+    # 5. Clean 404 handler
     ErrorDocument 404 /404/index.html
 </IfModule>
 
 # ==============================================================================
-# Fix HTTP 429: Static Asset Caching (Prevents request bursts on page refresh)
+# Static Asset Caching (Prevents request flooding on page refresh)
 # ==============================================================================
 <IfModule mod_expires.c>
     ExpiresActive On
     ExpiresDefault "access plus 1 month"
-
-    # Static assets: cache for 1 year in browser & Cloudflare
     ExpiresByType text/css "access plus 1 year"
     ExpiresByType application/javascript "access plus 1 year"
     ExpiresByType application/x-javascript "access plus 1 year"
@@ -36,8 +46,6 @@ Options -Indexes +FollowSymLinks
     ExpiresByType image/svg+xml "access plus 1 year"
     ExpiresByType font/woff2 "access plus 1 year"
     ExpiresByType font/woff "access plus 1 year"
-
-    # HTML files: do not cache indefinitely so user sees updates
     ExpiresByType text/html "access plus 0 seconds"
 </IfModule>
 
@@ -57,17 +65,7 @@ Options -Indexes +FollowSymLinks
 # Gzip Compression (Reduces bandwidth & request sizes by up to 80%)
 # ==============================================================================
 <IfModule mod_deflate.c>
-    AddOutputFilterByType DEFLATE text/plain
-    AddOutputFilterByType DEFLATE text/html
-    AddOutputFilterByType DEFLATE text/xml
-    AddOutputFilterByType DEFLATE text/css
-    AddOutputFilterByType DEFLATE application/xml
-    AddOutputFilterByType DEFLATE application/xhtml+xml
-    AddOutputFilterByType DEFLATE application/rss+xml
-    AddOutputFilterByType DEFLATE application/javascript
-    AddOutputFilterByType DEFLATE application/x-javascript
-    AddOutputFilterByType DEFLATE application/json
-    AddOutputFilterByType DEFLATE image/svg+xml
+    AddOutputFilterByType DEFLATE text/plain text/html text/xml text/css application/xml application/xhtml+xml application/rss+xml application/javascript application/x-javascript application/json image/svg+xml
 </IfModule>
 
 # ==============================================================================
