@@ -186,12 +186,12 @@ export default function SignupPage() {
               <span>{googleLoading ? "Connecting to Google..." : "Continue with Google"}</span>
             </button>
 
-            <div className="relative flex items-center justify-center my-4">
-              <div className="border-t border-neutral-200 w-full" />
-              <span className="bg-[#FAF5EE] px-3 text-[11px] text-neutral-500 font-semibold uppercase">
+            <div className="relative flex items-center my-5">
+              <div className="flex-grow border-t border-neutral-200" />
+              <span className="flex-shrink-0 mx-3 text-[11px] text-neutral-400 font-semibold uppercase tracking-wider whitespace-nowrap">
                 Or register with email
               </span>
-              <div className="border-t border-neutral-200 w-full" />
+              <div className="flex-grow border-t border-neutral-200" />
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-3.5 text-xs">
