@@ -1,3 +1,8 @@
+# ==============================================================================
+# Hostinger Premium Plan (LiteSpeed / Apache) Web Server Configuration
+# CRAFTTECH GLOBAL - Optimized for Static HTML Export & Clean URLs
+# ==============================================================================
+
 DirectoryIndex index.html
 Options -Indexes +FollowSymLinks
 
@@ -5,10 +10,70 @@ Options -Indexes +FollowSymLinks
     RewriteEngine On
     RewriteBase /
 
+    # Prevent trailing slash redirect loops
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME}/index.html -f
     RewriteRule ^(.*)$ $1/index.html [L]
 
+    # Custom 404 handler
     ErrorDocument 404 /404/index.html
 </IfModule>
 
+# ==============================================================================
+# Fix HTTP 429: Static Asset Caching (Prevents request bursts on page refresh)
+# ==============================================================================
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 1 month"
+
+    # Static assets: cache for 1 year in browser & Cloudflare
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType application/x-javascript "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+
+    # HTML files: do not cache indefinitely so user sees updates
+    ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+
+<IfModule mod_headers.c>
+    # Immutable cache for static chunks (avoids re-requesting 30 files on refresh)
+    <FilesMatch "\.(js|css|webp|png|jpg|jpeg|gif|ico|svg|woff|woff2)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+
+    # HTML pages: must revalidate to prevent stale sessions
+    <FilesMatch "\.(html|htm)$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+    </FilesMatch>
+</IfModule>
+
+# ==============================================================================
+# Gzip Compression (Reduces bandwidth & request sizes by up to 80%)
+# ==============================================================================
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# ==============================================================================
+# LiteSpeed Anti-Throttling Directive
+# ==============================================================================
+<IfModule Litespeed>
+    RewriteEngine On
+    RewriteRule .* - [E=noconntimeout:1]
+</IfModule>
